@@ -14,7 +14,19 @@ def get_data(request: str, pageNo: int):
     r = rq.get(url, payload)
     content = r.content
     soup = BeautifulSoup(content, features="lxml")
-    print(soup)
+
+    for item in soup.select(".r a"):
+        print(item.text)
+    """
+    # https://stackoverflow.com/questions/7746832/scraping-and-parsing-google-search-results-using-python
+    
+    for next_page in soup.select(".fl"):
+        res = rq.get(base + next_page.get('href'))
+        soup = BeautifulSoup(res.text, "lxml")
+        for item in soup.select(".r a"):
+            print(item.text)
+
+"""
 
     alls = []
 
